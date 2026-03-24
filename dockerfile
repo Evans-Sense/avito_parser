@@ -21,4 +21,4 @@ RUN mkdir -p data/photos data/logs
 
 RUN chmod +x entrypoint.sh
 
-CMD ["./entrypoint.sh"]
+CMD ["bash", "entrypoint.sh"]
