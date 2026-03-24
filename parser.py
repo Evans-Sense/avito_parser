@@ -11,17 +11,18 @@ from urllib.parse import urljoin
 import psutil
 import aiofiles
 from typing import List
+from config import Config
 
 # ====================== НАСТРОЙКИ ======================
 OUTPUT_FILE = "data/avito_ads.json"
 PHOTOS_DIR = "data/photos"
 
-STEP = 100_000
-MAX_PRICE = 1_000_000_000
-MAX_PAGES_PER_RANGE = 50
-MAX_RETRIES_423 = 10
-MAX_RETRIES_OTHER = 10
-MAX_EMPTY_PAGE_RETRIES = 10
+STEP = Config.STEP
+MAX_PRICE = Config.MAX_PRICE
+MAX_PAGES_PER_RANGE = Config.MAX_PAGES_PER_RANGE
+MAX_RETRIES_423 = Config.MAX_RETRIES_423
+MAX_RETRIES_OTHER = Config.MAX_RETRIES_OTHER
+MAX_EMPTY_PAGE_RETRIES = Config.MAX_EMPTY_PAGE_RETRIES
 
 # ====================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ======================
 def kill_js_runtimes():
@@ -422,7 +423,7 @@ async def parse_ad_page(page, ad_url: str, max_retries: int = 8) -> dict:
     return result
 
 # Максимальное число параллельных браузеров/страниц
-MAX_CONCURRENT_ADS = 3
+MAX_CONCURRENT_ADS = Config.MAX_CONCURRENT_ADS
 semaphore = asyncio.Semaphore(MAX_CONCURRENT_ADS)
 
 async def parse_ad_concurrent(link: str) -> None:
@@ -529,7 +530,7 @@ async def parse_avito_page(page, page_num: int = 1, base_url: str = None, max_re
 
 async def append_to_json(data: dict):
     async with aiofiles.open(OUTPUT_FILE, "a", encoding="utf-8") as f:
-        await f.write(json.dumps(data, ensure_ascii=False) + "\n")
+        await f.write(json.dumps(data, ensure_ascii=False) + ",\n")
 
 # ====================== ОСНОВНОЙ ЦИКЛ ======================
 async def main():

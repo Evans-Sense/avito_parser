@@ -15,9 +15,6 @@ RUN pip install --no-cache-dir -r requirements.txt && \
         xvfb sudo x11-utils xserver-xorg-video-dummy && \
     rm -rf /var/lib/apt/lists/*
 
-# даём sudo pwuser
-RUN echo "pwuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
 COPY . .
 
 RUN mkdir -p data/photos data/logs

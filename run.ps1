@@ -8,6 +8,15 @@ $CONTAINER_NAME = "avito-parser-container"
 $DATA_PATH = "$PWD\data"
 $VOLUME = "${DATA_PATH}:/app/data"
 
+Write-Host "[INFO] Building Docker image..."
+docker build -t $IMAGE_NAME .
+
+# Проверка успешности сборки
+if ($LastExitCode -ne 0) {
+    Write-Error "[ERROR] Failed to build Docker image. Exiting."
+    exit 1
+}
+
 Write-Host "[INFO] Checking folders..."
 
 if (!(Test-Path $DATA_PATH)) {
