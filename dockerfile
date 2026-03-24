@@ -19,9 +19,6 @@ COPY . .
 
 RUN mkdir -p data/photos data/logs
 
-COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
-
-USER root
 
 CMD ["./entrypoint.sh"]

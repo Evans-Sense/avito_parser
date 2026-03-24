@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 echo "[INIT] Fixing permissions..."
 chmod -R 777 /app/data || true
