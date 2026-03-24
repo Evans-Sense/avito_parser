@@ -39,8 +39,6 @@ Write-Host "[INFO] Starting container..."
 docker run `
     -it `
     --name $CONTAINER_NAME `
-    --shm-size=1gb `
-    --ipc=host `
     -v $VOLUME `
     $IMAGE_NAME
 
